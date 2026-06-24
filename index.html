@@ -9,7 +9,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* ===== CANVAS PARTICLES ===== */
         #particleCanvas {
             position: fixed;
             top: 0; left: 0;
@@ -18,7 +17,6 @@
             pointer-events: none;
         }
 
-        /* ===== CURSOR TRAIL ===== */
         .cursor-trail {
             position: fixed;
             width: 8px; height: 8px;
@@ -33,7 +31,6 @@
 
         body:hover .cursor-trail { opacity: 0.8; }
 
-        /* ===== HERO ===== */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -214,7 +211,6 @@
 
         .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
 
-        /* ===== 3D TERMINAL ===== */
         .hero-right {
             display: flex;
             justify-content: center;
@@ -287,7 +283,6 @@
         .term-keyword { color: #c678dd; }
         .term-blink { animation: blink 1s step-end infinite; color: var(--accent); }
 
-        /* ===== MARQUEE ===== */
         .marquee-section {
             padding: 2.5rem 0;
             border-top: 1px solid var(--border);
@@ -331,7 +326,6 @@
             font-weight: 300;
         }
 
-        /* ===== ABOUT ===== */
         .about { padding: 8rem 0; position: relative; }
 
         .about-grid {
@@ -462,7 +456,6 @@
 
         .skill-chip:hover::before { opacity: 1; }
 
-        /* ===== EXPERIENCE ===== */
         .experience { padding: 8rem 0; }
 
         .experience-grid {
@@ -567,7 +560,6 @@
             transform: translateY(-2px);
         }
 
-        /* ===== CTA ===== */
         .cta-section {
             padding: 8rem 0;
             text-align: center;
@@ -609,7 +601,6 @@
             flex-wrap: wrap;
         }
 
-        /* ===== SCROLL PROGRESS ===== */
         .scroll-progress {
             position: fixed;
             top: 0; left: 0;
@@ -657,8 +648,11 @@
             <div class="nav-action" onclick="window.location.href='contact.html'">
                 <div class="nav-action-dot"></div>
             </div>
-            <div class="mobile-menu-btn" onclick="toggleMobileMenu()">
-                <span></span><span></span><span></span>
+            <div class="mobile-menu-btn" id="mobileMenuBtn" onclick="toggleMobileMenu()">
+                <span class="bar1"></span>
+                <span class="bar2"></span>
+                <span class="bar3"></span>
+            </div>
         </div>
     </nav>
 
@@ -761,13 +755,15 @@
                     </div>
                     <h2 class="section-heading">DESIGNING WITH<br>PURPOSE.</h2>
                     <p class="about-text">
-                        I'm a multidisciplinary developer with a strong foundation in Object-Oriented Programming, 
-                        web technologies, and database management. My journey spans from engineering scalable web 
-                        solutions at HT-Networks to mentoring 30+ students in advanced problem-solving at STEP Schools.
+                        I am a BS Information Technology student at Bahria University, currently completed my 2nd semester. 
+                        I have a strong foundation in Object-Oriented Programming, web technologies, and database management. 
+                        My journey spans from engineering scalable web solutions at HT-Networks to mentoring 30+ students 
+                        in advanced problem-solving at STEP Schools.
                     </p>
                     <p class="about-text">
-                        With expertise in C++, Python, JavaScript, and SQL, I bring a unique blend of technical 
-                        precision and creative problem-solving to every project.
+                        Currently, I am actively looking for internship opportunities to gain hands-on industry experience 
+                        and contribute to real-world projects. With expertise in C++, Python, JavaScript, and SQL, 
+                        I bring a unique blend of technical precision and creative problem-solving to every project.
                     </p>
                     <div class="about-stats">
                         <div class="stat-item">
@@ -855,7 +851,7 @@
         <div class="section-container">
             <h2 class="cta-heading reveal">LET'S BUILD<br>SOMETHING GREAT.</h2>
             <p class="cta-text reveal">
-                Have a project in mind? I'm always excited to collaborate on new ideas and bring innovative solutions to life.
+                Have a project in mind? I am always excited to collaborate on new ideas and bring innovative solutions to life.
             </p>
             <div class="cta-buttons reveal">
                 <a href="work.html" class="btn btn-primary">
@@ -877,7 +873,7 @@
                 <div class="reveal">
                     <h2 class="footer-heading">HOW CAN I<br>HELP?</h2>
                     <p class="footer-text">
-                        I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
+                        I am always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
                     </p>
                     <a href="mailto:tzak2004@gmail.com" class="footer-email-btn">
                         tzak2004@gmail.com
@@ -912,7 +908,21 @@
     </footer>
 
     <script>
-        // ===== PARTICLE SYSTEM =====
+        function toggleMobileMenu() {
+            const overlay = document.getElementById('mobileOverlay');
+            const btn = document.getElementById('mobileMenuBtn');
+            overlay.classList.toggle('active');
+            btn.classList.toggle('active');
+        }
+
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1, rootMargin: '-80px' });
+        revealElements.forEach(el => revealObserver.observe(el));
+
         const canvas = document.getElementById('particleCanvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -1000,7 +1010,6 @@
             mouse.y = null;
         });
 
-        // ===== CURSOR TRAIL =====
         const cursorTrail = document.getElementById('cursorTrail');
         let trailX = 0, trailY = 0;
         let currentX = 0, currentY = 0;
@@ -1019,7 +1028,6 @@
         }
         animateCursor();
 
-        // ===== SCROLL PROGRESS =====
         const scrollProgress = document.getElementById('scrollProgress');
         window.addEventListener('scroll', () => {
             const scrollTop = window.scrollY;
@@ -1028,21 +1036,6 @@
             scrollProgress.style.width = scrollPercent + '%';
         });
 
-        // ===== MOBILE MENU =====
-        function toggleMobileMenu() {
-            document.getElementById('mobileOverlay').classList.toggle('active');
-        }
-
-        // ===== REVEAL ON SCROLL =====
-        const revealElements = document.querySelectorAll('.reveal');
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('active');
-            });
-        }, { threshold: 0.1, rootMargin: '-80px' });
-        revealElements.forEach(el => revealObserver.observe(el));
-
-        // ===== 3D TILT ON TERMINAL =====
         const tiltCard = document.getElementById('tiltCard');
         const heroRight = document.querySelector('.hero-right');
 
@@ -1057,7 +1050,6 @@
             tiltCard.style.transform = 'rotateY(-8deg) rotateX(6deg)';
         });
 
-        // ===== 3D TILT ON CARDS =====
         document.querySelectorAll('[data-tilt]').forEach(card => {
             card.addEventListener('mousemove', (e) => {
                 const rect = card.getBoundingClientRect();
@@ -1070,7 +1062,6 @@
             });
         });
 
-        // ===== NAVBAR SCROLL =====
         window.addEventListener('scroll', () => {
             const navbar = document.querySelector('.navbar');
             if (window.pageYOffset > 100) {
@@ -1080,7 +1071,6 @@
             }
         });
 
-        // ===== MAGNETIC BUTTONS =====
         document.querySelectorAll('.btn').forEach(btn => {
             btn.addEventListener('mousemove', (e) => {
                 const rect = btn.getBoundingClientRect();
