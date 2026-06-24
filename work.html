@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work | Tania Zubair Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .page-header {
+            padding: 10rem 0 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header-bg {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 14vw;
+            font-weight: 900;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(0, 223, 143, 0.04);
+            white-space: nowrap;
+            pointer-events: none;
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: -0.05em;
+        }
+
+        .page-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .works-section { padding: 4rem 0 8rem; }
+
+        .works-grid {
+            display: grid;
+            grid-template-columns: 7fr 5fr;
+            gap: 3rem;
+            min-height: 500px;
+            align-items: start;
+        }
+
+        .stack-container {
+            position: relative;
+            height: 480px;
+            perspective: 1500px;
+            transform-style: preserve-3d;
+        }
+
+        .stack-card {
+            position: absolute;
+            width: 100%;
+            max-width: 500px;
+            height: 350px;
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.8s cubic-bezier(0.32, 0.72, 0, 1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(0, 223, 143, 0.05);
+            border: 1px solid var(--border);
+            left: 50%;
+            transform-origin: center top;
+            transform-style: preserve-3d;
+        }
+
+        .stack-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .stack-card-overlay {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 2rem;
+            background: linear-gradient(to top, rgba(13, 17, 22, 0.95), transparent);
+        }
+
+        .stack-card-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .stack-card-category {
+            font-size: 0.8rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .works-detail { padding: 2rem 0; }
+
+        .works-detail-label {
+            font-size: 0.8rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .works-detail-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .works-detail-desc {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .works-detail-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .works-tag {
+            padding: 0.4rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .works-tag:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .stack-dots {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 2rem;
+            justify-content: center;
+        }
+
+        .stack-dot {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .stack-dot.active {
+            background: var(--accent);
+            box-shadow: 0 0 15px rgba(0, 223, 143, 0.5);
+        }
+
+        .projects-list { padding: 4rem 0 8rem; }
+
+        .project-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            padding: 4rem 0;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+        }
+
+        .project-row:first-child { border-top: 1px solid var(--border); }
+        .project-row:nth-child(even) .project-image { order: 2; }
+        .project-row:nth-child(even) .project-info { order: 1; }
+
+        .project-image {
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .project-image:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+            border-color: var(--border-hover);
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .project-image:hover img { transform: scale(1.08); }
+
+        .project-image-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(13,17,22,0.9), transparent 50%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            display: flex;
+            align-items: flex-end;
+            padding: 1.5rem;
+        }
+
+        .project-image:hover .project-image-overlay { opacity: 1; }
+
+        .project-info-label {
+            font-size: 0.8rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .project-info-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .project-info-desc {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-info-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-tag {
+            padding: 0.3rem 0.9rem;
+            background: rgba(0, 223, 143, 0.08);
+            border: 1px solid rgba(0, 223, 143, 0.2);
+            border-radius: 100px;
+            font-size: 0.75rem;
+            color: var(--accent);
+            transition: all 0.3s ease;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            padding: 0.75rem 1.5rem;
+            border: 1px solid var(--border);
+            border-radius: 100px;
+        }
+
+        .project-link:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+            transform: translateX(4px);
+        }
+
+        .competitions {
+            padding: 6rem 0;
+            background: var(--bg-surface);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .comp-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .comp-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .comp-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, var(--accent), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .comp-card:hover::before { transform: translateX(0); }
+
+        .comp-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-8px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(0, 223, 143, 0.1);
+        }
+
+        .comp-icon {
+            width: 56px; height: 56px;
+            border-radius: 14px;
+            background: rgba(0, 223, 143, 0.1);
+            border: 1px solid rgba(0, 223, 143, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .comp-icon svg {
+            width: 26px; height: 26px;
+            color: var(--accent);
+        }
+
+        .comp-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .comp-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .comp-badge {
+            display: inline-block;
+            margin-top: 1.25rem;
+            padding: 0.35rem 1rem;
+            background: rgba(0, 223, 143, 0.1);
+            border: 1px solid rgba(0, 223, 143, 0.3);
+            border-radius: 100px;
+            font-size: 0.78rem;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        @media (max-width: 1024px) {
+            .works-grid { grid-template-columns: 1fr; }
+            .stack-container { height: 400px; }
+            .project-row { grid-template-columns: 1fr; }
+            .project-row:nth-child(even) .project-image { order: 1; }
+            .project-row:nth-child(even) .project-info { order: 2; }
+            .comp-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .page-header { padding: 8rem 0 3rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">TANIA<span class="logo-dot">.</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="work.html" class="active">Work</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-action" onclick="window.location.href='contact.html'">
+                <div class="nav-action-dot"></div>
+            </div>
+            <div class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="mobile-overlay" id="mobileOverlay">
+        <a href="index.html" onclick="toggleMobileMenu()">Home</a>
+        <a href="work.html" onclick="toggleMobileMenu()">Work</a>
+        <a href="contact.html" onclick="toggleMobileMenu()">Contact</a>
+    </div>
+
+    <header class="page-header">
+        <div class="page-header-bg">PROJECTS</div>
+        <div class="section-label reveal" style="justify-content: center;">
+            <div class="section-label-dot"></div>
+            <span class="section-label-text">Portfolio</span>
+        </div>
+        <h1 class="page-title reveal">MY RECENT<br>WORKS.</h1>
+        <p class="page-subtitle reveal">
+            A collection of projects showcasing my skills in programming, web development, and problem-solving.
+        </p>
+    </header>
+
+    <section class="works-section">
+        <div class="section-container">
+            <div class="works-grid">
+                <div class="stack-container reveal" id="stackContainer"></div>
+                <div class="works-detail reveal" style="transition-delay: 0.2s;" id="worksDetail"></div>
+            </div>
+            <div class="stack-dots" id="stackDots"></div>
+        </div>
+    </section>
+
+    <section class="projects-list">
+        <div class="section-container">
+            <div class="section-label reveal">
+                <div class="section-label-dot"></div>
+                <span class="section-label-text">All Projects</span>
+            </div>
+            <h2 class="section-heading reveal">DETAILED<br>OVERVIEW.</h2>
+
+            <div class="project-row reveal">
+                <div class="project-image" data-tilt>
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&auto=format&fit=crop" alt="Car Rental System">
+                    <div class="project-image-overlay">
+                        <span class="works-tag">C++ Console App</span>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <div class="project-info-label">Console Application</div>
+                    <h3 class="project-info-title">Car Rental System</h3>
+                    <p class="project-info-desc">
+                        Architected a console-based application to manage vehicle rentals, customer records, and booking workflows 
+                        using advanced Object-Oriented Programming principles.
+                    </p>
+                    <div class="project-info-tags">
+                        <span class="project-tag">C++</span>
+                        <span class="project-tag">OOP</span>
+                        <span class="project-tag">Console App</span>
+                        <span class="project-tag">File Handling</span>
+                    </div>
+                    <a href="https://github.com/taniazubair" target="_blank" class="project-link">
+                        View on GitHub
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-row reveal">
+                <div class="project-image" data-tilt>
+                    <img src="https://images.unsplash.com/photo-1542204165-65bf26472b9b?w=800&auto=format&fit=crop" alt="Quiz Conduct System">
+                    <div class="project-image-overlay">
+                        <span class="works-tag">Education Platform</span>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <div class="project-info-label">Automated Platform</div>
+                    <h3 class="project-info-title">Quiz Conduct System</h3>
+                    <p class="project-info-desc">
+                        Engineered an automated quiz management platform handling student participation, real-time scoring, 
+                        and result analytics with robust validation.
+                    </p>
+                    <div class="project-info-tags">
+                        <span class="project-tag">C++</span>
+                        <span class="project-tag">OOP</span>
+                        <span class="project-tag">Automation</span>
+                        <span class="project-tag">Scoring</span>
+                    </div>
+                    <a href="https://github.com/taniazubair" target="_blank" class="project-link">
+                        View on GitHub
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-row reveal">
+                <div class="project-image" data-tilt>
+                    <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&auto=format&fit=crop" alt="Bakery Website">
+                    <div class="project-image-overlay">
+                        <span class="works-tag">Frontend Design</span>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <div class="project-info-label">Responsive Website — Team Project</div>
+                    <h3 class="project-info-title">Bakery Website</h3>
+                    <p class="project-info-desc">
+                        A team project crafting a fully responsive bakery website with product galleries, contact forms, 
+                        and smooth animations using modern HTML/CSS.
+                    </p>
+                    <div class="project-info-tags">
+                        <span class="project-tag">HTML</span>
+                        <span class="project-tag">CSS</span>
+                        <span class="project-tag">Responsive</span>
+                        <span class="project-tag">UI/UX</span>
+                        <span class="project-tag">Team Project</span>
+                    </div>
+                    <a href="https://wasiahmed02.github.io/Bakery-Website--ICT-Project-/" target="_blank" class="project-link">
+                        Live Demo
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-row reveal">
+                <div class="project-image" data-tilt>
+                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&auto=format&fit=crop" alt="DLD Traffic Control">
+                    <div class="project-image-overlay">
+                        <span class="works-tag">Hardware Logic</span>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <div class="project-info-label">Digital Logic Design</div>
+                    <h3 class="project-info-title">DLD Traffic Control System</h3>
+                    <p class="project-info-desc">
+                        Designed a two-road traffic control system using only Digital Logic Design components without any programming code. 
+                        Pure hardware logic gates, flip-flops, and timing circuits.
+                    </p>
+                    <div class="project-info-tags">
+                        <span class="project-tag">DLD</span>
+                        <span class="project-tag">Logic Gates</span>
+                        <span class="project-tag">Flip-Flops</span>
+                        <span class="project-tag">IEEE</span>
+                    </div>
+                    <a href="https://github.com/taniazubair" target="_blank" class="project-link">
+                        View on GitHub
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="competitions">
+        <div class="section-container">
+            <div class="section-label reveal">
+                <div class="section-label-dot"></div>
+                <span class="section-label-text">Achievements</span>
+            </div>
+            <h2 class="section-heading reveal">COMPETITIONS &<br>ACHIEVEMENTS.</h2>
+            <div class="comp-grid">
+                <div class="comp-card reveal" data-tilt>
+                    <div class="comp-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <h3 class="comp-title">IEEE OOP Competition</h3>
+                    <p class="comp-desc">
+                        Participated in the IEEE Object-Oriented Programming competition, demonstrating advanced OOP concepts 
+                        and problem-solving skills in a competitive environment.
+                    </p>
+                    <span class="comp-badge">Participant</span>
+                </div>
+                <div class="comp-card reveal" data-tilt style="transition-delay: 0.1s;">
+                    <div class="comp-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                    </div>
+                    <h3 class="comp-title">DLD Traffic Control Competition</h3>
+                    <p class="comp-desc">
+                        Designed a two-road traffic control system using only Digital Logic Design components — no code, 
+                        just hardware logic gates, flip-flops, and timing circuits.
+                    </p>
+                    <span class="comp-badge">Hardware Design</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-bg-text">CONTACT</div>
+        <div class="section-container">
+            <div class="footer-grid">
+                <div class="reveal">
+                    <h2 class="footer-heading">HOW CAN I<br>HELP?</h2>
+                    <p class="footer-text">
+                        I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
+                    </p>
+                    <a href="mailto:tzak2004@gmail.com" class="footer-email-btn">
+                        tzak2004@gmail.com
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+                <div class="reveal" style="transition-delay: 0.1s;">
+                    <div class="footer-links-title">Menu</div>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="work.html">Work</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="reveal" style="transition-delay: 0.2s;">
+                    <div class="footer-links-title">Socials</div>
+                    <ul class="footer-links">
+                        <li><a href="https://github.com/taniazubair" target="_blank">GitHub</a></li>
+                        <li><a href="mailto:tzak2004@gmail.com">Email</a></li>
+                        <li><a href="tel:+923343330648">+92 334 3330648</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-copyright">&copy; 2026 Tania Zubair. All rights reserved.</div>
+                <div class="footer-legal">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            document.getElementById('mobileOverlay').classList.toggle('active');
+        }
+
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1, rootMargin: '-80px' });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        const projects = [
+            {
+                image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&auto=format&fit=crop',
+                category: 'Console Application',
+                title: 'Car Rental System',
+                description: 'A console-based application architected to manage vehicle rentals, customer records, and booking workflows using advanced Object-Oriented Programming principles in C++.',
+                tags: ['C++', 'OOP', 'Console App', 'File Handling']
+            },
+            {
+                image: 'https://images.unsplash.com/photo-1542204165-65bf26472b9b?w=800&auto=format&fit=crop',
+                category: 'Education Platform',
+                title: 'Quiz Conduct System',
+                description: 'An automated quiz management platform handling student participation, real-time scoring, and result analytics with robust validation and instant feedback.',
+                tags: ['C++', 'OOP', 'Automation', 'Scoring']
+            },
+            {
+                image: 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&auto=format&fit=crop',
+                category: 'Frontend Design — Team Project',
+                title: 'Bakery Website',
+                description: 'A team project building a fully responsive bakery website with product galleries, contact forms, and smooth animations using modern HTML/CSS.',
+                tags: ['HTML', 'CSS', 'Responsive', 'Team Project']
+            },
+            {
+                image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&auto=format&fit=crop',
+                category: 'Hardware Logic',
+                title: 'DLD Traffic Control',
+                description: 'A two-road traffic control system designed using only Digital Logic Design components without any programming code — pure hardware logic.',
+                tags: ['DLD', 'Logic Gates', 'Flip-Flops', 'IEEE']
+            }
+        ];
+
+        let activeIdx = 0;
+        const stackContainer = document.getElementById('stackContainer');
+        const worksDetail = document.getElementById('worksDetail');
+        const stackDots = document.getElementById('stackDots');
+
+        function renderStack() {
+            stackContainer.innerHTML = '';
+            projects.forEach((project, idx) => {
+                const diff = (idx - activeIdx + projects.length) % projects.length;
+                const card = document.createElement('div');
+                card.className = 'stack-card';
+                card.style.zIndex = projects.length - diff;
+                card.style.transform = `translateX(-50%) translateY(${diff * 35}px) scale(${1 - diff * 0.05}) rotateX(${diff * 2}deg)`;
+                card.style.opacity = diff > 2 ? 0 : 1 - diff * 0.15;
+                card.style.pointerEvents = diff === 0 ? 'auto' : 'none';
+                card.innerHTML = `
+                    <img src="${project.image}" alt="${project.title}">
+                    <div class="stack-card-overlay">
+                        <div class="stack-card-category">${project.category}</div>
+                        <div class="stack-card-title">${project.title}</div>
+                    </div>
+                `;
+                card.addEventListener('click', () => {
+                    if (diff === 0) activeIdx = (activeIdx + 1) % projects.length;
+                    else activeIdx = idx;
+                    renderStack(); renderDetail(); renderDots();
+                });
+                stackContainer.appendChild(card);
+            });
+        }
+
+        function renderDetail() {
+            const project = projects[activeIdx];
+            worksDetail.innerHTML = `
+                <div class="works-detail-label">${project.category}</div>
+                <h3 class="works-detail-title">${project.title}</h3>
+                <p class="works-detail-desc">${project.description}</p>
+                <div class="works-detail-tags">
+                    ${project.tags.map(tag => `<span class="works-tag">${tag}</span>`).join('')}
+                </div>
+                <a href="https://github.com/taniazubair" target="_blank" class="btn btn-primary" style="font-size: 0.9rem; padding: 0.875rem 1.75rem;">
+                    Explore Project
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+            `;
+            worksDetail.style.opacity = '0';
+            worksDetail.style.transform = 'translateY(20px)';
+            worksDetail.style.transition = 'all 0.4s ease';
+            setTimeout(() => {
+                worksDetail.style.opacity = '1';
+                worksDetail.style.transform = 'translateY(0)';
+            }, 50);
+        }
+
+        function renderDots() {
+            stackDots.innerHTML = '';
+            projects.forEach((_, idx) => {
+                const dot = document.createElement('div');
+                dot.className = `stack-dot ${idx === activeIdx ? 'active' : ''}`;
+                dot.addEventListener('click', () => {
+                    activeIdx = idx;
+                    renderStack(); renderDetail(); renderDots();
+                });
+                stackDots.appendChild(dot);
+            });
+        }
+
+        renderStack(); renderDetail(); renderDots();
+
+        document.querySelectorAll('[data-tilt]').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width - 0.5;
+                const y = (e.clientY - rect.top) / rect.height - 0.5;
+                card.style.transform = `translateY(-5px) rotateX(${y * -10}deg) rotateY(${x * 10}deg)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+            });
+        });
+
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.pageYOffset > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
