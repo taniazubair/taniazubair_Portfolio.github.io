@@ -68,134 +68,6 @@
             z-index: 1;
         }
 
-        .works-section { padding: 4rem 0 8rem; }
-
-        .works-grid {
-            display: grid;
-            grid-template-columns: 7fr 5fr;
-            gap: 3rem;
-            min-height: 500px;
-            align-items: start;
-        }
-
-        .stack-container {
-            position: relative;
-            height: 480px;
-            perspective: 1500px;
-            transform-style: preserve-3d;
-        }
-
-        .stack-card {
-            position: absolute;
-            width: 100%;
-            max-width: 500px;
-            height: 350px;
-            border-radius: 20px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.8s cubic-bezier(0.32, 0.72, 0, 1);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(0, 223, 143, 0.05);
-            border: 1px solid var(--border);
-            left: 50%;
-            transform-origin: center top;
-            transform-style: preserve-3d;
-        }
-
-        .stack-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .stack-card-overlay {
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            padding: 2rem;
-            background: linear-gradient(to top, rgba(13, 17, 22, 0.95), transparent);
-        }
-
-        .stack-card-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.25rem;
-            font-weight: 700;
-        }
-
-        .stack-card-category {
-            font-size: 0.8rem;
-            color: var(--accent);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 0.5rem;
-        }
-
-        .works-detail { padding: 2rem 0; }
-
-        .works-detail-label {
-            font-size: 0.8rem;
-            color: var(--accent);
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .works-detail-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            line-height: 1.1;
-        }
-
-        .works-detail-desc {
-            color: var(--text-secondary);
-            line-height: 1.8;
-            margin-bottom: 2rem;
-        }
-
-        .works-detail-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .works-tag {
-            padding: 0.4rem 1rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border);
-            border-radius: 100px;
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            transition: all 0.3s ease;
-        }
-
-        .works-tag:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-            transform: translateY(-2px);
-        }
-
-        .stack-dots {
-            display: flex;
-            gap: 0.75rem;
-            margin-top: 2rem;
-            justify-content: center;
-        }
-
-        .stack-dot {
-            width: 10px; height: 10px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .stack-dot.active {
-            background: var(--accent);
-            box-shadow: 0 0 15px rgba(0, 223, 143, 0.5);
-        }
-
         .projects-list { padding: 4rem 0 8rem; }
 
         .project-row {
@@ -391,7 +263,6 @@
             font-weight: 600;
         }
 
-        /* ===== COURSES SECTION ===== */
         .courses-section {
             padding: 6rem 0;
             position: relative;
@@ -546,8 +417,6 @@
         }
 
         @media (max-width: 1024px) {
-            .works-grid { grid-template-columns: 1fr; }
-            .stack-container { height: 400px; }
             .project-row { grid-template-columns: 1fr; }
             .project-row:nth-child(even) .project-image { order: 1; }
             .project-row:nth-child(even) .project-info { order: 2; }
@@ -601,7 +470,12 @@
         </p>
     </header>
 
-    <section class="works-section">
+    <section class="projects-list">
+        <div class="section-container">
+            <div class="section-label reveal">
+                <div class="section-label-dot"></div>
+                <span class="section-label-text">All Projects</span>
+            </div>
             <h2 class="section-heading reveal">DETAILED<br>OVERVIEW.</h2>
 
             <div class="project-row reveal">
@@ -621,7 +495,6 @@
                     <div class="project-info-tags">
                         <span class="project-tag">C++</span>
                         <span class="project-tag">OOP</span>
-
                         <span class="project-tag">File Handling</span>
                     </div>
                     <a href="https://github.com/taniazubair" target="_blank" class="project-link">
@@ -686,35 +559,7 @@
                     </a>
                 </div>
             </div>
-
-            <div class="project-row reveal">
-                <div class="project-image" data-tilt>
-                    <img src="dld.jpg" alt="DLD Traffic Control">
-                    <div class="project-image-overlay">
-                        <span class="works-tag">Hardware Logic</span>
-                    </div>
-                </div>
-                <div class="project-info">
-                    <div class="project-info-label">Digital Logic Design</div>
-                    <h3 class="project-info-title">DLD Traffic Control System</h3>
-                    <p class="project-info-desc">
-                        Designed a two-road traffic control system using only Digital Logic Design components without any programming code. 
-                        Pure hardware logic gates, flip-flops, and timing circuits.
-                    </p>
-                    <div class="project-info-tags">
-                        <span class="project-tag">DLD</span>
-                        <span class="project-tag">Logic Gates</span>
-                        <span class="project-tag">Flip-Flops</span>
-                        <span class="project-tag">IEEE</span>
-                    </div>
-                    <a href="https://github.com/taniazubair" target="_blank" class="project-link">
-                        View on GitHub
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                    </a>
-                    
-                </div>
-            </div>
-              <div class="project-row reveal">
+             <div class="project-row reveal">
                 <div class="project-image" data-tilt>
                     <img src="password.jpg" alt="password Website">
                     <div class="project-image-overlay">
@@ -743,6 +588,32 @@
                 </div>
             </div>
 
+            <div class="project-row reveal">
+                <div class="project-image" data-tilt>
+                    <img src="dld.jpg" alt="DLD Traffic Control">
+                    <div class="project-image-overlay">
+                        <span class="works-tag">Hardware Logic</span>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <div class="project-info-label">Digital Logic Design</div>
+                    <h3 class="project-info-title">DLD Traffic Control System</h3>
+                    <p class="project-info-desc">
+                        Designed a two-road traffic control system using only Digital Logic Design components without any programming code. 
+                        Pure hardware logic gates, flip-flops, and timing circuits.
+                    </p>
+                    <div class="project-info-tags">
+                        <span class="project-tag">DLD</span>
+                        <span class="project-tag">Logic Gates</span>
+                        <span class="project-tag">Flip-Flops</span>
+                        <span class="project-tag">IEEE</span>
+                    </div>
+                    <a href="https://github.com/taniazubair" target="_blank" class="project-link">
+                        View on GitHub
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -865,106 +736,6 @@
         }, { threshold: 0.1, rootMargin: '-80px' });
         revealElements.forEach(el => revealObserver.observe(el));
 
-        const projects = [
-            {
-                image: 'car_rental.png',
-                category: 'Console Application',
-                title: 'Car Rental System',
-                description: 'A console-based application architected to manage vehicle rentals, customer records, and booking workflows using advanced Object-Oriented Programming principles in C++.',
-                tags: ['C++', 'OOP', 'Console App', 'File Handling']
-            },
-            {
-                image: 'quiz.png',
-                category: 'Education Platform',
-                title: 'Quiz Conduct System',
-                description: 'An automated quiz management platform handling student participation, real-time scoring, and result analytics with robust validation and instant feedback.',
-                tags: ['C++', 'OOP', 'Automation', 'Scoring']
-            },
-            {
-                image: 'download.jpeg',
-                category: 'Frontend Design — Team Project',
-                title: 'Bakery Website',
-                description: 'A team project building a fully responsive bakery website with product galleries, contact forms, and smooth animations using modern HTML/CSS.',
-                tags: ['HTML', 'CSS', 'Responsive', 'Team Project']
-            },
-            {
-                image: 'c++.jpg',
-                category: 'Hardware Logic',
-                title: 'DLD Traffic Control',
-                description: 'A two-road traffic control system designed using only Digital Logic Design components without any programming code — pure hardware logic.',
-                tags: ['DLD', 'Logic Gates', 'Flip-Flops', 'IEEE']
-            }
-        ];
-
-        let activeIdx = 0;
-        const stackContainer = document.getElementById('stackContainer');
-        const worksDetail = document.getElementById('worksDetail');
-        const stackDots = document.getElementById('stackDots');
-
-        function renderStack() {
-            stackContainer.innerHTML = '';
-            projects.forEach((project, idx) => {
-                const diff = (idx - activeIdx + projects.length) % projects.length;
-                const card = document.createElement('div');
-                card.className = 'stack-card';
-                card.style.zIndex = projects.length - diff;
-                card.style.transform = `translateX(-50%) translateY(${diff * 35}px) scale(${1 - diff * 0.05}) rotateX(${diff * 2}deg)`;
-                card.style.opacity = diff > 2 ? 0 : 1 - diff * 0.15;
-                card.style.pointerEvents = diff === 0 ? 'auto' : 'none';
-                card.innerHTML = `
-                    <img src="${project.image}" alt="${project.title}">
-                    <div class="stack-card-overlay">
-                        <div class="stack-card-category">${project.category}</div>
-                        <div class="stack-card-title">${project.title}</div>
-                    </div>
-                `;
-                card.addEventListener('click', () => {
-                    if (diff === 0) activeIdx = (activeIdx + 1) % projects.length;
-                    else activeIdx = idx;
-                    renderStack(); renderDetail(); renderDots();
-                });
-                stackContainer.appendChild(card);
-            });
-        }
-
-        function renderDetail() {
-            const project = projects[activeIdx];
-            worksDetail.innerHTML = `
-                <div class="works-detail-label">${project.category}</div>
-                <h3 class="works-detail-title">${project.title}</h3>
-                <p class="works-detail-desc">${project.description}</p>
-                <div class="works-detail-tags">
-                    ${project.tags.map(tag => `<span class="works-tag">${tag}</span>`).join('')}
-                </div>
-                <a href="https://github.com/taniazubair" target="_blank" class="btn btn-primary" style="font-size: 0.9rem; padding: 0.875rem 1.75rem;">
-                    Explore Project
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </a>
-            `;
-            worksDetail.style.opacity = '0';
-            worksDetail.style.transform = 'translateY(20px)';
-            worksDetail.style.transition = 'all 0.4s ease';
-            setTimeout(() => {
-                worksDetail.style.opacity = '1';
-                worksDetail.style.transform = 'translateY(0)';
-            }, 50);
-        }
-
-        function renderDots() {
-            stackDots.innerHTML = '';
-            projects.forEach((_, idx) => {
-                const dot = document.createElement('div');
-                dot.className = `stack-dot ${idx === activeIdx ? 'active' : ''}`;
-                dot.addEventListener('click', () => {
-                    activeIdx = idx;
-                    renderStack(); renderDetail(); renderDots();
-                });
-                stackDots.appendChild(dot);
-            });
-        }
-
-        renderStack(); renderDetail(); renderDots();
-
         document.querySelectorAll('[data-tilt]').forEach(card => {
             card.addEventListener('mousemove', (e) => {
                 const rect = card.getBoundingClientRect();
@@ -986,7 +757,6 @@
             }
         });
 
-        // ===== PARTICLE SYSTEM =====
         const canvas = document.getElementById('particleCanvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -1074,7 +844,6 @@
             mouse.y = null;
         });
 
-        // ===== SCROLL PROGRESS =====
         const scrollProgress = document.getElementById('scrollProgress');
         window.addEventListener('scroll', () => {
             const scrollTop = window.scrollY;
